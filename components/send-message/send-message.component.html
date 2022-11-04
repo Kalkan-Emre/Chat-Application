@@ -1,0 +1,32 @@
+<nav>
+  <button routerLinkActive="active" routerLink="/admin">Main Page</button>
+</nav>
+<h2 class="page-header" >Send Message</h2>
+<form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
+
+        <div class="form-group">
+          <label for="username">Send to:</label>
+          <input type="text" class="form-control" placeholder="Enter an username" formControlName="to">
+          <!-- error -->
+          <div
+            class="invalid-feedback"
+            *ngIf="submitted && myForm['to'].errors?.['required']"
+        >
+            Please enter an username.
+          </div>
+        </div>
+
+        <div class="form-group">
+            <label for="messageBody">Message</label>
+            <textarea class="form-control" type="text" formControlName="messageBody" placeholder="Enter yourmessage"></textarea>
+          <!-- error -->
+          <div
+            class="invalid-feedback"
+            *ngIf="submitted && myForm['messageBody'].errors?.['required']"
+            >
+            Please enter your message
+          </div>
+        </div>
+
+        <input class="btn btn-lg btn-primary" type="submit" value="Send">
+</form>

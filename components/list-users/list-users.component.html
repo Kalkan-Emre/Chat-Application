@@ -1,0 +1,102 @@
+<h2>User List</h2>
+
+<nav>
+  <button routerLinkActive="active" routerLink="/admin-panel">Admin Panel</button>
+</nav>
+
+<br>
+
+<div class="container">
+    <!-- No data message -->
+    <p *ngIf="User.length <= 0" class="no-data text-center">There is no User added yet!</p>
+    <!-- User list -->
+    <table mat-table [dataSource]="dataSource" matSort class="table table-bordered">
+
+  <!-- ID Column -->
+  <ng-container matColumnDef="id">
+    <thead class="table-success">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">
+      ID
+    </th>
+  </thead>
+    <td mat-cell *matCellDef="let element"> {{element._id}} </td>
+  </ng-container>
+
+  <!-- Username Column -->
+  <ng-container matColumnDef="username">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by username">
+      Username
+    </th>
+    <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="name" mat>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">
+      Name
+    </th>
+    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+  </ng-container>
+
+  <!-- Gender Column -->
+  <ng-container matColumnDef="gender">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by gender">
+      Gender
+    </th>
+    <td mat-cell *matCellDef="let element"> {{element.gender}} </td>
+  </ng-container>
+
+    <!-- Email Column -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by email">
+        Email
+      </th>
+      <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+    </ng-container>
+
+      <!-- Designation Column -->
+  <ng-container matColumnDef="designation">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by designation">
+      Designation
+    </th>
+    <td mat-cell *matCellDef="let element"> {{element.designation}} </td>
+  </ng-container>
+
+    <!-- Phone Number Column -->
+    <ng-container matColumnDef="phone number">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by phone number">
+        Phone Number
+      </th>
+      <td mat-cell *matCellDef="let element"> {{element.phoneNumber}} </td>
+    </ng-container>
+
+      <!-- Birth Date Column -->
+      <ng-container matColumnDef="birth date">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Birth Date">
+          Birth Date
+        </th>
+        <td mat-cell *matCellDef="let element"> {{element.birthDate | date :'dd MMM yyyy'}} </td>
+      </ng-container>
+
+          <!-- Update Column -->
+    <ng-container matColumnDef="update">
+      <th mat-header-cell *matHeaderCellDef >Update</th>
+      <td class="text-center edit-block" mat-cell *matCellDef="let element" >
+        <span class="edit" [routerLink]="['/edit-user/', element._id]">
+          <button type="button" class="btn btn-success btn-sm">Edit</button>
+        </span>
+        <span class="delete" (click)="removeUser(element._id, i)">
+          <button type="button" class="btn btn-danger btn-sm">Delete</button>
+        </span>
+      </td>
+    </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<mat-paginator
+              [pageSizeOptions]="[5, 10, 25, 100]"
+              aria-label="Select page" 
+              showFirstLastButtons >
+</mat-paginator>
+</div>

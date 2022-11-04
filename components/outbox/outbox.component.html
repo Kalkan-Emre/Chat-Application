@@ -1,0 +1,53 @@
+<nav>
+  <button routerLinkActive="active" routerLink="/admin">Main Page</button>
+</nav>
+
+<br>
+
+<div class="container">
+    <!-- No data message -->
+    <p *ngIf="Message.length <= 0" class="no-data text-center">There is no message!</p>
+    <!-- User list -->
+    <table mat-table [dataSource]="dataSource" matSort class="table table-bordered">
+
+  <!-- Username Column -->
+  <ng-container matColumnDef="to">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by to">
+      To
+    </th>
+    <td mat-cell *matCellDef="let element"> {{element.to}} </td>
+  </ng-container>
+
+    <!-- Activity Column -->
+    <ng-container matColumnDef="message">
+      <thead class="table-success">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by message">
+        Message
+      </th>
+    </thead>
+      <td mat-cell *matCellDef="let element"> {{element.messageBody}} </td>
+    </ng-container>
+
+  <!-- Date Column -->
+  <ng-container matColumnDef="date">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by date">
+      Date
+    </th>
+    <td mat-cell *matCellDef="let element"> {{element.date | date :'short':'UTC+3'}} </td>
+  </ng-container>
+
+  <!-- Update Column -->
+  <ng-container matColumnDef="update">
+      <th mat-header-cell *matHeaderCellDef >Update</th>
+      <td class="text-center edit-block" mat-cell *matCellDef="let element" >
+        <span class="delete" (click)="deleteMessage(element)">
+            <button type="button" class="btn btn-danger btn-sm">Delete</button>
+        </span>
+      </td>
+  </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons ></mat-paginator>
+</div>
+
